@@ -1,0 +1,214 @@
+
+
+===========================================================================================================
+Example => Shell switch case(to check char is vowel or not):
+************************************************************
+echo -n "Enter a character: "
+read CHAR
+case $CHAR in
+	a) echo "You entered $CHAR which is a vowel";;
+	e) echo "You entered $CHAR which is a vowel";;
+	i) echo "You entered $CHAR which is a vowel";;
+	o) echo "You entered $CHAR which is a vowel";;
+	u) echo "You entered $CHAR which is a vowel";;
+	*) echo "You entered $CHAR which is not a vowel";; 
+esac
+===========================================================================================================
+Example => Array operations:
+****************************
+array=(zero one two three four five)
+# Element 0   1   2    3   4   5
+echo ${array[0]}       #  zero
+echo ${array}          #  zero, Parameter expansion of first element,+ starting at position # 0 (1st character).
+echo ${array:2}        #  ero, Parameter expansion of first element, + starting at position # 1 (2nd character).
+echo "-------------------------"
+echo ${#array[0]}      #  4, Length of first element of array.
+echo ${#array}         #  4, Length of first element of array. (Alternate notation)
+echo ${#array[1]}      #  3, Length of second element of array. Arrays in Bash have zero-based indexing.
+echo ${#array[*]}      #  6, Number of elements in array.
+echo ${#array[@]}      #  6, Number of elements in array.
+echo "-------------------------"
+
+# Quoting permits embedding whitespace within individual array elements.
+array2=([0]="first element" [1]="second element" [3]="fourth element")
+
+echo "The ${array2[0]}"   # first element
+echo "The ${array2[1]}"   # second element
+echo "The ${array2[2]}"   # Skipped in initialization, and therefore null.
+echo "The ${array2[3]}"   # fourth element
+echo "The length of ${array2[0]} ${#array2[0]}" 	   # 13 (length of first element)
+echo "The number of elements in the array ${#array2[*]}" 
+===========================================================================================================
+Example => Printing command line args:
+**************************************
+ARG=($*)
+echo ${ARG[0]}
+echo ${ARG[1]}
+echo ${ARG[2]}
+echo ${ARG[3]}
+===========================================================================================================
+Example => Declaring an array and printing through loop:
+********************************************************
+# Declare an array
+FRUITS=(apple mango banana orange)
+
+# Print value of each element
+echo "element 0: ${FRUITS[0]}"
+echo "element 1: ${FRUITS[1]}"
+echo "element 2: ${FRUITS[2]}"
+echo "element 3: ${FRUITS[3]}"
+
+# Print size / length of array
+echo "Length: ${#FRUITS[@]}"
+echo "Whole array: ${FRUITS[@]}"
+echo "Whole array: ${FRUITS[*]}"
+
+echo "Looping over array elements"
+# Iterate over array elements
+for ITEM in ${FRUITS[@]}
+do
+	echo $ITEM
+done
+===========================================================================================================
+Example => Adding numbers passed as arguments to a function:
+************************************************************
+# Function definition
+function find_sum()
+{
+	echo "Arg count: $#"
+	echo "Arg list: $@"
+	SUM=0
+	# Iterate over function arguments
+	for ARG in $@
+	do
+		SUM=`expr $ARG + $SUM`
+    done
+    echo $SUM
+}
+# Call find_sum with many arguments
+find_sum 1 2 3 4 5
+echo "//////////////////////////////////"
+find_sum 10 20
+===========================================================================================================
+Example => Add 2 numbers using functions:
+*****************************************
+function find_sum()
+{
+   SUM=`expr $1 + $2`
+   echo $SUM
+}
+# Pass arguments 10 and 20 to find_sum function
+find_sum 10 20
+===========================================================================================================
+Example => Calling a function:
+******************************
+function print_hello()
+{
+	echo "====="
+	echo "Hello"
+	echo "====="
+}
+# Call the function - print_hello
+print_hello
+===========================================================================================================
+Example => Total number of arguments-1:
+***************************************
+echo "Total no. of argument: $#"
+echo "Argument list: $@" # Commonly used
+echo "Argument list: $*"
+# Iterate over arguments ($@)
+for ARG in $*
+do
+   echo $ARG
+done   
+===========================================================================================================
+Example => Total number of arguments-2:
+***************************************
+echo "Total no. of argument: $#"
+echo "Program name: $0"
+echo "1st argument: $1"
+echo "2nd argument: $2"
+echo "3rd argument: $3"
+===========================================================================================================
+Example => Sum of first n numbers(Using for loop):
+**************************************************
+echo -n "Enter a number: "
+read NUM
+let SUM=0; 
+for I in `seq $NUM` # seq command provides a sequence of numbers from 0 to $NUM
+do
+	SUM=`expr $SUM + $I`
+done
+echo "The sum of the first $NUM numbers is: $SUM"
+===========================================================================================================
+Example => Sum of first n numbers(Using while loop):
+****************************************************
+echo -n "Enter a number: "
+read NUM
+let SUM=0; 
+let I=1
+while [ $I -le $NUM ]
+do
+	SUM=`expr $SUM + $I`
+	I=$((${I} + 1))
+done
+echo "The sum of the first $NUM numbers is: $SUM"
+===========================================================================================================
+Example => Add 2 strings:
+*************************
+str1="sudheer"
+str2="raja"
+res="$str1 $str2" 
+echo $res
+===========================================================================================================
+Example => Print multiples of 5:
+********************************
+i=1
+res=0
+while [ $i -le 10 ]
+do
+  res=$(($i*5))
+  echo $res
+  i=$(($i+1))
+done
+===========================================================================================================
+Example => add numbers in array using expr:
+*******************************************
+sum=0
+arr=(10 20 30 40 50)
+for i in ${arr[@]}
+do
+  sum=`expr $sum + $i`
+done
+echo $sum
+===========================================================================================================
+Example => add numbers in array +:
+**********************************
+sum=0
+arr=(40 50 60 70 80)
+for i in ${arr[@]}
+do
+  sum=$(($sum+$i))
+done
+echo $sum
+===========================================================================================================
+Example => Check 2 string are equal:
+**************************************
+read -p "Enter two strings: " str1 str2
+echo "$str1"
+echo "$str2"
+if [ $str == $str2 ]
+then
+  echo "Equal"
+else
+  echo "Un Equal"
+fi
+===========================================================================================================
+Example => Print strings in array:
+*************************************
+arr=("gurram" "sudheer" "raja")
+for i in ${arr[@]}
+do
+  echo $i
+done
+===========================================================================================================
